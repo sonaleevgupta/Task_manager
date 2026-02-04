@@ -1,0 +1,21 @@
+# ======================
+# Node / React
+# ======================
+node_modules/
+dist/
+build/
+.env
+
+# ======================
+# Python / FastAPI
+# ======================
+venv/
+__pycache__/
+*.pyc
+.env
+
+# ======================
+# OS files
+# ======================
+.DS_Store
+Thumbs.db
