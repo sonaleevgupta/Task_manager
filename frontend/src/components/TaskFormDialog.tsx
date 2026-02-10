@@ -36,13 +36,7 @@ export function TaskFormDialog({ open, onOpenChange, task }: TaskFormDialogProps
 
   const form = useForm<TaskFormData>({
     resolver: zodResolver(taskSchema),
-    defaultValues: {
-      title: '',
-      description: '',
-      status: 'todo',
-      priority: 'medium',
-      dueDate: '',
-    },
+    defaultValues: { title: '', description: '', status: 'todo', priority: 'medium', dueDate: '' },
   });
 
   useEffect(() => {
@@ -55,13 +49,7 @@ export function TaskFormDialog({ open, onOpenChange, task }: TaskFormDialogProps
         dueDate: task.dueDate ? task.dueDate.split('T')[0] : '',
       });
     } else {
-      form.reset({
-        title: '',
-        description: '',
-        status: 'todo',
-        priority: 'medium',
-        dueDate: '',
-      });
+      form.reset({ title: '', description: '', status: 'todo', priority: 'medium', dueDate: '' });
     }
   }, [task, form]);
 
@@ -98,9 +86,9 @@ export function TaskFormDialog({ open, onOpenChange, task }: TaskFormDialogProps
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="sm:max-w-lg rounded-2xl">
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Task' : 'Create Task'}</DialogTitle>
+          <DialogTitle className="font-heading text-xl">{isEdit ? 'Edit Task' : 'Create Task'}</DialogTitle>
           <DialogDescription>
             {isEdit ? 'Update the task details below' : 'Fill in the details to create a new task'}
           </DialogDescription>
@@ -109,110 +97,86 @@ export function TaskFormDialog({ open, onOpenChange, task }: TaskFormDialogProps
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {serverError && (
-              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+              <div className="rounded-xl bg-destructive/10 p-3 text-sm text-destructive border border-destructive/20">
                 {serverError}
               </div>
             )}
 
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Task title" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField control={form.control} name="title" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-medium">Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Task title" className="rounded-xl border-2 border-border bg-muted/30 focus-visible:ring-primary/30 focus-visible:border-primary" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Optional description..."
-                      className="min-h-[100px]"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <FormField control={form.control} name="description" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-medium">Description</FormLabel>
+                <FormControl>
+                  <Textarea placeholder="Optional description..." className="min-h-[100px] rounded-xl border-2 border-border bg-muted/30 focus-visible:ring-primary/30 focus-visible:border-primary" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
 
             <div className="grid grid-cols-2 gap-4">
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Status</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="todo">To Do</SelectItem>
-                        <SelectItem value="in-progress">In Progress</SelectItem>
-                        <SelectItem value="done">Done</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="priority"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Priority</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="low">Low</SelectItem>
-                        <SelectItem value="medium">Medium</SelectItem>
-                        <SelectItem value="high">High</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="dueDate"
-              render={({ field }) => (
+              <FormField control={form.control} name="status" render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Due Date</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
+                  <FormLabel className="font-medium">Status</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="rounded-xl border-2 border-border">
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="todo">To Do</SelectItem>
+                      <SelectItem value="in-progress">In Progress</SelectItem>
+                      <SelectItem value="done">Done</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
-              )}
-            />
+              )} />
+
+              <FormField control={form.control} name="priority" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-medium">Priority</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="rounded-xl border-2 border-border">
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="rounded-xl">
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+            </div>
+
+            <FormField control={form.control} name="dueDate" render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-medium">Due Date</FormLabel>
+                <FormControl>
+                  <Input type="date" className="rounded-xl border-2 border-border bg-muted/30 focus-visible:ring-primary/30 focus-visible:border-primary" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )} />
 
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="rounded-xl">
                 Cancel
               </Button>
-              <Button type="submit" disabled={isPending}>
+              <Button type="submit" disabled={isPending} className="rounded-xl gradient-primary text-white shadow-lg shadow-primary/20">
                 {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 {isEdit ? 'Update' : 'Create'}
               </Button>

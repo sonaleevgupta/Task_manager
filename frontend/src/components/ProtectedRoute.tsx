@@ -10,16 +10,19 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
 
-  // Show loader while auth state is being resolved
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <div className="flex flex-col items-center gap-4">
+          <div className="h-12 w-12 rounded-xl gradient-primary flex items-center justify-center animate-pulse">
+            <Loader2 className="h-6 w-6 animate-spin text-primary-foreground" />
+          </div>
+          <p className="text-muted-foreground text-sm">Loading...</p>
+        </div>
       </div>
     );
   }
 
-  // Redirect if not logged in
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

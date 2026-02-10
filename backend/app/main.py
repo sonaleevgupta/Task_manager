@@ -8,12 +8,21 @@ app = FastAPI()
 # ✅ CORS CONFIG
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],  # frontend URL
+    allow_origins=[
+    "http://localhost:8080",
+    "http://127.0.0.1:8080"
+]
+,
     allow_credentials=True,
     allow_methods=["*"],  # GET, POST, PUT, DELETE, OPTIONS
     allow_headers=["*"],
 )
 
-# ✅ ROUTERS (THIS WAS THE PROBLEM)
+# ✅ ROUTERS
 app.include_router(auth.router)
 app.include_router(tasks.router)
+
+@app.get("/")
+def read_root():
+    return {"message": "TaskFlow API is running"}
+

@@ -1,4 +1,3 @@
-// User types
 export interface User {
   id: string;
   email: string;
@@ -10,7 +9,6 @@ export interface AuthResponse {
   user: User;
 }
 
-// Task types
 export type TaskStatus = 'todo' | 'in-progress' | 'done';
 export type TaskPriority = 'low' | 'medium' | 'high';
 
@@ -21,7 +19,8 @@ export interface Task {
   status: TaskStatus;
   priority: TaskPriority;
   dueDate?: string;
-  createdAt: string;
+  created_at: string;
+
   updatedAt: string;
 }
 
@@ -41,7 +40,6 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
-// API Error type
 export interface ApiError {
   error: boolean;
   message: string;

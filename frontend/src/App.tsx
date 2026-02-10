@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { AuthProvider } from "@/context/AuthContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
@@ -12,9 +13,6 @@ import DashboardHome from "./pages/DashboardHome";
 import Tasks from "./pages/Tasks";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
-
-import { AuthProvider } from "@/context/AuthContext";
-
 
 const queryClient = new QueryClient();
 
